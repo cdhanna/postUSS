@@ -1,8 +1,12 @@
+* {
+    --primary: #ffff00;
+}
+
 Label {
-    color: #ffff00;
+    color: undefined;
     font-size: 16px;
 }
 
 .primary Label {
-        font-size: 20px;
+        font-size: 30px;
     }

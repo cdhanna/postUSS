@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: postUss
   m_EditorClassIdentifier: 
   description: Post USS Config File
-  plugins:
+  devDependencies:
   - key: postcss
     value: ^8.3.11
   - key: postcss-cli
     value: ^9.0.2
-  - key: postcss-css-variables
-    value: ^0.18.0
-  - key: postcss-import
-    value: ^14.0.2
-  - key: postcss-nested
-    value: ^5.0.6
-  - key: postcss-nested-props
-    value: ^2.0.0
+  plugins:
+  - name: postcss-css-variables
+    version: ^0.18.0
+    javascriptOption: 
+  - name: postcss-import
+    version: ^14.0.2
+    javascriptOption: 
+  - name: postcss-nested
+    version: ^5.0.6
+    javascriptOption: 
+  - name: postcss-nested-props
+    version: ^2.0.0
+    javascriptOption: 
   compilePath: Assets/PostUSS/Editor/~/package.json
+  configPath: Assets/PostUSS/Editor/~/postcss.config.js
