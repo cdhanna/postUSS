@@ -1,0 +1,8 @@
+Label {
+    color: #ffff00;
+    font-size: 16px;
+}
+
+.primary Label {
+        font-size: 20px;
+    }

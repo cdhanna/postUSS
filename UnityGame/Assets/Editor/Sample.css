@@ -1,0 +1,12 @@
+@import '../Common.css';
+
+Label {
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.primary {
+    Label {
+        font-size: 20px;
+    }
+}
