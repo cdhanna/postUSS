@@ -1,0 +1,16 @@
+{
+  "name": "com.brewedink.postuss",
+  "version": "0.0.0",
+  "displayName": "BrewedInk PostUSS",
+  "description": "transpile modern CSS to USS",
+  "unity": "2018.4",
+  "keywords": [
+    "uss",
+    "css"
+  ],
+  "author": "Chris Hanna",
+  "license": "ISC",
+  "dependencies": {
+    "com.unity.modules.uielements": "1.0.0"
+  }
+}
