@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using BrewedInk.PostUSS.Npm;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 namespace BrewedInk.PostUSS
 {
@@ -15,16 +18,44 @@ namespace BrewedInk.PostUSS
         [MenuItem("BrewedInk/Test")]
         public static void Test()
         {
-            InitProject();
+            GetConfiguration();
         }
 
-        public static void InitProject()
+        private static PostUssConfiguration _instance;
+
+        public static void AddCSSPath(this VisualElement self, string cssPath)
+        {
+            self.AddStyleSheetPath(GetUssBuildPath(cssPath));
+        }
+
+        public static string GetUssBuildPath(string cssPath)
+        {
+            var ussPath = Path.ChangeExtension(cssPath, "uss");
+            return $"Assets/PostUSS/Build/{ussPath}";
+        }
+
+        [DidReloadScripts]
+        public static void Watch()
+        {
+            var config = GetConfiguration();
+            var command = new NpmRun(config, "buildAll");
+            command.Start();
+        }
+
+        public static PostUssConfiguration GetConfiguration()
         {
             Directory.CreateDirectory(CONFIG_PATH);
             Directory.CreateDirectory(NODE_PROJECT_PATH);
 
-
             // is there a configuration file?
+            if (_instance != null)
+            {
+                return _instance;
+            }
+
+            // TODO: Add a .gitignore automatically for the node_modules folder
+            
+
             var config = AssetDatabase.LoadAssetAtPath<PostUssConfiguration>(CONFIG_FILE_PATH);
             if (!config)
             {
@@ -45,6 +76,8 @@ namespace BrewedInk.PostUSS
                 AssetDatabase.CreateAsset(config, CONFIG_FILE_PATH);
             }
 
+            _instance = config;
+            return config;
         }
     }
 }
