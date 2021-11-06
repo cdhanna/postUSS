@@ -13,6 +13,7 @@ namespace BrewedInk.PostUSS
         public const string CONFIG_PATH = "Assets/PostUSS/Editor/";
         public const string NODE_PROJECT_PATH = CONFIG_PATH + "~/";
         public const string PACKAGE_JSON_PATH = NODE_PROJECT_PATH + "package.json";
+        public const string CONFIG_JS_PATH = NODE_PROJECT_PATH + "postcss.config.js";
         public const string CONFIG_FILE_PATH = CONFIG_PATH + "postUss.asset";
 
         [MenuItem("BrewedInk/Test")]
@@ -54,7 +55,7 @@ namespace BrewedInk.PostUSS
             }
 
             // TODO: Add a .gitignore automatically for the node_modules folder
-            
+
 
             var config = AssetDatabase.LoadAssetAtPath<PostUssConfiguration>(CONFIG_FILE_PATH);
             if (!config)
@@ -63,14 +64,18 @@ namespace BrewedInk.PostUSS
 
                 config.description = "Post USS Config File";
                 config.compilePath = PACKAGE_JSON_PATH;
-                config.plugins = new List<StringPair>
+                config.configPath = CONFIG_JS_PATH;
+                config.devDependencies = new List<StringPair>
                 {
                     new StringPair("postcss", "^8.3.11"),
                     new StringPair("postcss-cli", "^9.0.2"),
-                    new StringPair("postcss-css-variables", "^0.18.0"),
-                    new StringPair("postcss-import", "^14.0.2"),
-                    new StringPair("postcss-nested", "^5.0.6"),
-                    new StringPair("postcss-nested-props", "^2.0.0"),
+                };
+                config.plugins = new List<PostCssPlugin>
+                {
+                    new PostCssPlugin("postcss-css-variables", "^0.18.0"),
+                    new PostCssPlugin("postcss-import", "^14.0.2"),
+                    new PostCssPlugin("postcss-nested", "^5.0.6"),
+                    new PostCssPlugin("postcss-nested-props", "^2.0.0"),
                 };
 
                 AssetDatabase.CreateAsset(config, CONFIG_FILE_PATH);

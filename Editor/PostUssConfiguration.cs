@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BrewedInk.PostUSS.Npm;
 using UnityEngine;
 
@@ -9,9 +10,11 @@ namespace BrewedInk.PostUSS
    public class PostUssConfiguration : ScriptableObject
    {
       public string description;
-      public List<StringPair> plugins;
+      public List<StringPair> devDependencies;
+      public List<PostCssPlugin> plugins;
 
       public string compilePath;
+      public string configPath;
 
       [ContextMenu("NPM INSTALL")]
       public void Install()
@@ -42,13 +45,17 @@ namespace BrewedInk.PostUSS
 
       private void CompilePackageJson()
       {
-         var model = ToModel();
          Directory.CreateDirectory(Path.GetDirectoryName(compilePath));
-         File.WriteAllText(compilePath, model.ToJson());
+         Directory.CreateDirectory(Path.GetDirectoryName(configPath));
+
+         File.WriteAllText(compilePath, GetPackageJsonModel().ToJson());
+         File.WriteAllText(configPath, GetPostCssConfigModel().ToJavascript());
       }
 
-      private NodePackageModel ToModel()
+      private NodePackageModel GetPackageJsonModel()
       {
+         var allDependencies = devDependencies.ToList();
+         allDependencies.AddRange(plugins.Select(p => new StringPair(p.name, p.version)));
          return new NodePackageModel
          {
             name = "postussconfig",
@@ -57,10 +64,35 @@ namespace BrewedInk.PostUSS
             {
                new StringPair("build", "postcss ../../../**/*.css --base ../../.. --dir ../../.. --ext uss"),
                new StringPair("buildEnv", "postcss ../../../../${INPUT} --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss"),
-               new StringPair("buildAll", "postcss ../../../**/*.css --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss -w")
+               new StringPair("buildAll", "postcss ../../../**/*.css --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss --config ./ -w")
             },
-            devDependencies = plugins
+            devDependencies = allDependencies
+         };
+      }
+
+      private PostCssModuleConfigurationModel GetPostCssConfigModel()
+      {
+         return new PostCssModuleConfigurationModel
+         {
+            plugins = plugins
          };
       }
    }
+
+   [Serializable]
+   public class PostCssPlugin
+   {
+      public string name;
+      public string version;
+      public string javascriptOption;
+
+      public PostCssPlugin(){}
+
+      public PostCssPlugin(string name, string version)
+      {
+         this.name = name;
+         this.version = version;
+      }
+   }
+
 }

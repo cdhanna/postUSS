@@ -69,6 +69,43 @@ namespace BrewedInk.PostUSS
    }
 
    [Serializable]
+   public class PostCssModuleConfigurationModel
+   {
+      public List<PostCssPlugin> plugins;
+
+      public string ToJavascript()
+      {
+         var sb = new StringBuilder();
+
+         sb.Append("module.exports = { plugins: [ ");
+
+         foreach (var plugin in plugins)
+         {
+            sb.Append("require('");
+            sb.Append(plugin.name);
+            sb.Append("')(");
+            if (!string.IsNullOrEmpty(plugin.javascriptOption))
+               sb.Append(plugin.javascriptOption);
+            sb.Append("),");
+         }
+
+         sb.Append("] }");
+
+         return sb.ToString();
+      }
+      /*
+       * module.exports = {
+    plugins: [
+      require('postcss-import')(),
+      require('postcss-css-variables')(),
+      require('postcss-nested')(),
+      require('postcss-nested-props')()
+    ],
+  }
+       */
+   }
+
+   [Serializable]
    public class StringPair
    {
       public string key, value;
