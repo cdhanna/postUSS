@@ -1,0 +1,7 @@
+@import './test.css';
+div {
+    color: var(--hello);
+    p {
+        font-size: 12px;
+    }
+}

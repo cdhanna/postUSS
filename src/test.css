@@ -1,0 +1,7 @@
+div {
+    color: blue;
+    --hello: pink;
+
+    margin: 12px;
+    -unity-background-scale-mode: stretch-to-fill;
+}

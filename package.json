@@ -1,0 +1,18 @@
+{
+  "name": "postuss",
+  "description": "This is an experimental project to integrate a postCSS plugin for Unity USS.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "postcss **/*.css --base src --dir src --ext uss -w",
+    "clean": "del **/*.uss"
+  },
+  "devDependencies": {
+    "del-cli": "^4.0.1",
+    "postcss": "^8.3.11",
+    "postcss-cli": "^9.0.2",
+    "postcss-css-variables": "^0.18.0",
+    "postcss-import": "^14.0.2",
+    "postcss-nested": "^5.0.6",
+    "postcss-nested-props": "^2.0.0"
+  }
+}
