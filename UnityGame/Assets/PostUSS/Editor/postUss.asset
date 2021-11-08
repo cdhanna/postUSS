@@ -19,17 +19,27 @@ MonoBehaviour:
   - key: postcss-cli
     value: ^9.0.2
   plugins:
-  - name: postcss-css-variables
-    version: ^0.18.0
-    javascriptOption: 
   - name: postcss-import
     version: ^14.0.2
+    javascriptOption: 
+  - name: postcss-css-variables
+    version: ^0.18.0
     javascriptOption: 
   - name: postcss-nested
     version: ^5.0.6
     javascriptOption: 
-  - name: postcss-nested-props
-    version: ^2.0.0
+  - name: postcss-color-palette
+    version: 
+    javascriptOption: 
+  - name: postcss-color-function
+    version: ^4.0.0
+    javascriptOption: 
+  - name: postcss-shorthand-expand
+    version: 
     javascriptOption: 
   compilePath: Assets/PostUSS/Editor/~/package.json
   configPath: Assets/PostUSS/Editor/~/postcss.config.js
+  WatchDirectories:
+  - src: ../../../../Packages/com.brewedink.postuss
+    basePath: ../../../../Packages/com.brewedink.postuss
+    dest: ../../../../Packages/com.brewedink.postuss/PostUss/Build

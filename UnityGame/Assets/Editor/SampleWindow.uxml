@@ -5,13 +5,13 @@
         xmlns:engine="UnityEngine.Experimental.UIElements">
 
     <engine:VisualElement class="primary">
-        <engine:Label text="Hello world"/>
-        <engine:Label class="derp" text="Hello world"/>
+        <engine:Label text=".primary"/>
+        <engine:Label class="derp" text=".primary .derp"/>
     </engine:VisualElement>
 
     <engine:VisualElement class="second">
-        <engine:Label text="Hello world"/>
-        <engine:Label class="derp" text="Hello world"/>
+        <engine:Label text=".second"/>
+        <engine:Label class="derp" text=".second .derp"/>
     </engine:VisualElement>
 
 </engine:UXML>
