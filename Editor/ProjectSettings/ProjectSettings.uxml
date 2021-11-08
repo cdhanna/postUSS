@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:editor="UnityEditor.Experimental.UIElements"
+        xmlns:engine="UnityEngine.Experimental.UIElements">
+
+    <engine:VisualElement class="header">
+
+        <engine:VisualElement name="logo"/>
+        <engine:VisualElement name="text">
+            <engine:Label name="title" text="PostUSS"/>
+            <engine:Label name="about" text="Transpile .css files to .uss files with all the power of PostCSS"/>
+        </engine:VisualElement>
+
+
+    </engine:VisualElement>
+
+
+    <engine:VisualElement class="body">
+        <engine:VisualElement>
+            <engine:Label text="NPM Path" tooltip="postUSS requires Node Package Manager (NPM) to be installed on your machine. Please post the system path to NPM here."/>
+            <engine:TextField text="npm"/>
+            <engine:Label name="npmError" text="(NPM verified)"/>
+        </engine:VisualElement>
+
+        <engine:VisualElement name="plugins">
+            <engine:Label text="Post CSS Plugins" tooltip="You can add whatever plugins you want"/>
+
+        </engine:VisualElement>
+    </engine:VisualElement>
+
+
+
+</engine:UXML>

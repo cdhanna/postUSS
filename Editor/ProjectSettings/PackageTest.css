@@ -1,0 +1,30 @@
+* {
+    --postcssColor: #CB453D;
+}
+
+.header {
+    flex-direction: row;
+    margin-top: 24px;
+    margin-bottom: 48px;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+
+    #logo {
+        background-image: url("project:///Packages/com.brewedink.postuss/Editor/Icons/postcss_logo.png");
+        width: 70px;
+        height: 70px;
+    }
+
+    #title {
+        font-size: 50px;
+        color: var(--postcssColor);
+        -unity-font-style: bold;
+    }
+    #about {
+        position: relative;
+        top: -10px;
+        width: 200px;
+        word-wrap: true;
+    }
+}
