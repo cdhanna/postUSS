@@ -19,6 +19,7 @@ namespace BrewedInk.PostUSS.Npm
       protected int _exitCode = -1;
       protected string DockerCmd => "npm";
       public Action<int> OnExit;
+      public Action<string> OnStandardOut, OnStandardErr;
 
       public bool WriteLogToUnity { get; set; }
       public bool WriteCommandToUnity { get; set; }
@@ -42,6 +43,7 @@ namespace BrewedInk.PostUSS.Npm
          {
             LogInfo(data);
          }
+         OnStandardOut?.Invoke(data);
       }
 
       protected virtual void HandleStandardErr(string data)
@@ -50,6 +52,8 @@ namespace BrewedInk.PostUSS.Npm
          {
             LogError(data);
          }
+         OnStandardErr?.Invoke(data);
+
       }
 
       public virtual void Start()

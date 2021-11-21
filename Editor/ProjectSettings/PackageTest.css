@@ -27,4 +27,8 @@
         width: 200px;
         word-wrap: true;
     }
+
+    Button {
+        width: 30px;
+    }
 }

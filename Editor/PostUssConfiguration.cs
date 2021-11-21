@@ -6,6 +6,7 @@ using BrewedInk.PostUSS.Npm;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace BrewedInk.PostUSS
 {
@@ -116,7 +117,7 @@ namespace BrewedInk.PostUSS
                // new StringPair("buildEnv", "postcss ../../../../${INPUT} --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss"),
                // new StringPair("buildAll", "postcss ../../../**/*.css --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss --config ./ -w"),
                // new StringPair("buildAll", "postcss ../../../**/*.css --base ../../../.. --dir ../../../PostUSS/Build/ --ext uss --config ./ -w"),
-               new StringPair("build", "postcss ${SRC}/**/*.css --base ${BASE} --dir ${DIST} --ext uss --config ./ -w")
+               new StringPair("build", "postcss ${SRC}/**/*.css --base ${BASE} --dir ${DIST} --ext uss --config ./ -w --verbose")
             },
             devDependencies = allDependencies
          };
@@ -156,6 +157,8 @@ namespace BrewedInk.PostUSS
 
       public NpmRun Command { get; set; }
 
+      private string currentFilePath;
+
       public void Start(PostUssConfiguration config)
       {
          Command?.Kill();
@@ -168,7 +171,45 @@ namespace BrewedInk.PostUSS
 
          // Command.WriteLogToUnity = true;
          // Command.WriteCommandToUnity = true;
+
+         Command.OnStandardErr += OnMessage;
          Command.Start();
+      }
+
+      private void OnMessage(string msg)
+      {
+         if (string.IsNullOrEmpty(msg)) return;
+
+         var processingFileText = "Finished ";
+         if (msg.StartsWith(processingFileText))
+         {
+            currentFilePath = msg.Substring(processingFileText.Length);
+            // remove the timestamp section...
+            var index = currentFilePath.IndexOf(".css");
+            currentFilePath = currentFilePath.Substring(0, index + 4);
+
+            // get the absolute path from Unity folder
+            currentFilePath = currentFilePath.Substring(basePath.Length);
+            if (!basePath.Contains("/Packages/"))
+            {
+               currentFilePath = "Assets" + currentFilePath;
+            }
+            else
+            {
+               var packageIndex = basePath.IndexOf("/Packages/");
+               var packagePath = basePath.Substring(packageIndex + 1);
+               currentFilePath = packagePath + currentFilePath;
+            }
+         }
+
+         if (string.IsNullOrEmpty(currentFilePath) ||
+             msg == "Waiting for file changes..." ||
+             msg.StartsWith("Finished ") ||
+             msg.StartsWith("Processing "))
+         {
+            return;
+         }
+         Debug.LogError($"{msg}\n{currentFilePath}\n<a href=\"{currentFilePath}\">{currentFilePath}</a>");
       }
    }
 
