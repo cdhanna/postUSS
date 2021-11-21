@@ -25,3 +25,7 @@
         width: 200px;
         word-wrap: true;
     }
+
+    .header Button {
+        width: 30px;
+    }

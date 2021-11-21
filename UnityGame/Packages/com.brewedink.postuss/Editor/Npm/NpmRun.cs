@@ -26,6 +26,7 @@ namespace BrewedInk.PostUSS.Npm
          }
       }
 
+
       public override string GetCommandString()
       {
          return $"npm run {_command}";
