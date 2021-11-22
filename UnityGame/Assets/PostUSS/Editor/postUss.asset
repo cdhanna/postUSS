@@ -37,6 +37,9 @@ MonoBehaviour:
   - name: postcss-shorthand-expand
     version: 
     javascriptOption: 
+  - name: postcss-unity3d
+    version: https://github.com/cdhanna/postcss-unity3d
+    javascriptOption: 
   compilePath: Assets/PostUSS/Editor/~/package.json
   configPath: Assets/PostUSS/Editor/~/postcss.config.js
   WatchAssets:
