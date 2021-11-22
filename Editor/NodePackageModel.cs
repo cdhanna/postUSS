@@ -8,7 +8,6 @@ namespace BrewedInk.PostUSS
    [Serializable]
    class NodePackageModel
    {
-
       public string name = "";
       public string description = "";
       public List<StringPair> scripts = new List<StringPair>();
