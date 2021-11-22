@@ -4,7 +4,7 @@
       ["@semantic-release/commit-analyzer", { "preset": "angular" }],
       "@semantic-release/release-notes-generator",
       ["@semantic-release/changelog", { "preset": "angular" }],
-      ["@semantic-release/npm", { "npmPublish": false, "pkgRoot": "UnityGame/Packages/com.brewedink.postuss/package.json" }],
+      ["@semantic-release/npm", { "npmPublish": false, "pkgRoot": "UnityGame/Packages/com.brewedink.postuss" }],
       ["@semantic-release/git", {
         "assets": ["UnityGame/Packages/com.brewedink.postuss/package.json", "CHANGELOG.md"],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
