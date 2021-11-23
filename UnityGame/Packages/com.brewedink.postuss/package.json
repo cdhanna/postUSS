@@ -1,6 +1,6 @@
 {
   "name": "com.brewedink.postuss",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "BrewedInk PostUSS",
   "description": "transpile modern CSS to USS",
   "unity": "2018.4",
